@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Foras · Lord of The Shadows</title>
+<meta name="description" content="The archive of Foras, a shapeless entity reviewing Black Metal and Dungeon Synth. Full multi-chapter reviews, a curated vault of 59 releases, and a submission chamber for bands and labels.">
+<meta name="theme-color" content="#0a0b0d">
+<link rel="icon" href="img/sigil.png">
+<link rel="preload" href="fonts/garamond.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/unifraktur.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+window.FORAS_CONFIG = { email: "", webhook: "" };
+</script>
+<style>
+@font-face{font-family:"Cinzel";src:url(fonts/cinzel.woff2) format("woff2");font-weight:400 900;font-display:swap}
+@font-face{font-family:"Unifraktur";src:url(fonts/unifraktur.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Garamond";src:url(fonts/garamond.woff2) format("woff2");font-weight:400 800;font-display:swap}
+@font-face{font-family:"Garamond";src:url(fonts/garamond-italic.woff2) format("woff2");font-weight:400 800;font-style:italic;font-display:swap}
+@font-face{font-family:"JetBrains";src:url(fonts/jetbrains.woff2) format("woff2");font-weight:100 800;font-display:swap}
+
+:root{
+  --obsidian:#0a0b0d;--ash:#14171a;--ash-2:#1b1f23;--line:#2b2f34;--line-2:#3a3f45;
+  --parch:#c8b99d;--parch-hi:#d6c9ae;--ink:#1c1712;--ink-soft:#4a3f33;
+  --bone:#e6e2db;--muted:#9d978b;--ember:#7a1c1c;--ember-hi:#b5463d;
+  --f-black:"Unifraktur",serif;--f-cap:"Cinzel",serif;--f-text:"Garamond",Georgia,serif;--f-mono:"JetBrains",ui-monospace,monospace;
+  --r:2px;--ease:cubic-bezier(.2,.7,.2,1);
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--obsidian);color:var(--bone);font:400 1.0625rem/1.6 var(--f-text);overflow-x:hidden;padding-bottom:88px}
+body::before{content:"";position:fixed;inset:0;background:var(--grain);opacity:.07;pointer-events:none;z-index:100}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--parch);outline-offset:2px}
+.wrap{width:min(1200px,100% - 32px);margin-inline:auto}
+.mono{font-family:var(--f-mono);font-size:.8125rem;letter-spacing:.01em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 18px;border:1px solid var(--parch);border-radius:var(--r);background:transparent;color:var(--parch);font:600 .8125rem/1 var(--f-mono);text-decoration:none;cursor:pointer;transition:background .16s var(--ease),color .16s var(--ease),border-color .16s var(--ease)}
+.btn:hover{background:var(--parch);color:var(--obsidian)}
+.btn:active{transform:translateY(1px)}
+.btn--blood{border-color:var(--ember);background:var(--ember);color:var(--bone)}
+.btn--blood:hover{background:#8f2424;border-color:#8f2424;color:var(--bone)}
+.btn[disabled]{opacity:.4;pointer-events:none}
+
+/* header */
+.top{position:sticky;top:0;z-index:50;background:var(--obsidian);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px}
+.mark{font:400 1.75rem/1 var(--f-black);color:var(--bone);text-decoration:none}
+.nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.nav a{font:500 .8125rem/1 var(--f-mono);color:var(--muted);text-decoration:none;padding:10px 10px;border-bottom:1px solid transparent;white-space:nowrap;transition:color .16s var(--ease),border-color .16s var(--ease)}
+.nav a:hover,.nav a[aria-current="true"]{color:var(--bone);border-bottom-color:var(--ember)}
+
+/* sanctum */
+.sanctum{border-bottom:1px solid var(--line);padding:56px 0 72px}
+.sanctum .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:56px;align-items:center}
+.handle{color:var(--muted);margin:0 0 8px}
+.sanctum h1{font:400 clamp(5.5rem,17vw,12.5rem)/.78 var(--f-black);margin:0 0 20px;color:var(--bone);letter-spacing:-.01em}
+.sanctum h1 .glyphs{font:400 .2em/1 var(--f-text);vertical-align:top;margin-left:.2em}
+.entity{font:500 clamp(1.125rem,2.2vw,1.5rem)/1.3 var(--f-cap);color:var(--parch);margin:0 0 28px;max-width:30ch}
+.intro{max-width:56ch;font-size:1.1875rem;line-height:1.65;color:#cfcac1;margin:0 0 32px}
+.intro em{color:var(--bone)}
+.seal{display:flex;gap:16px;align-items:center;border:1px solid var(--line-2);border-left:3px solid var(--ember);padding:14px 18px;max-width:520px;margin-bottom:32px;background:var(--ash)}
+.seal svg{flex:none}
+.seal strong{display:block;font:600 .9375rem/1.3 var(--f-cap);color:var(--bone);letter-spacing:.02em}
+.seal span{display:block;color:var(--muted);margin-top:4px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.relic{margin:0;border:1px solid var(--line-2);padding:10px;background:var(--ash)}
+.relic button{display:block;width:100%;padding:0;border:0;background:none;cursor:pointer}
+.relic img{width:100%;aspect-ratio:1;max-height:72vh;object-fit:cover;filter:sepia(.25) contrast(1.05) brightness(.85);transition:filter .2s var(--ease)}
+.relic button:hover img{filter:none}
+.relic figcaption{padding:12px 4px 2px;color:var(--muted);font-size:.9375rem;line-height:1.4}
+.relic figcaption b{color:var(--parch);font-weight:500;font-style:italic}
+
+/* altar */
+.altar{padding:80px 0;border-bottom:1px solid var(--line);background:#070708}
+.altar .wrap{display:grid;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:64px;align-items:center}
+.stage{position:relative;container-type:inline-size;border:1px solid var(--line-2);overflow:hidden;background:#000;aspect-ratio:3/4}
+.stage>img{width:100%;height:100%;object-fit:cover;transition:filter .5s var(--ease)}
+.flame{position:absolute;width:16cqw;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,196,120,.55),rgba(255,140,50,.2) 38%,transparent 70%);mix-blend-mode:screen;pointer-events:none;animation:flick var(--d,2.4s) ease-in-out infinite alternate;transition:opacity .4s var(--ease)}
+@keyframes flick{0%{opacity:.55;transform:translate(-50%,-50%) scale(.92)}35%{opacity:.95}60%{opacity:.7;transform:translate(-50%,-52%) scale(1.06)}100%{opacity:1;transform:translate(-50%,-50%) scale(.98)}}
+.sigil-glow{position:absolute;left:51%;top:46.2%;width:30cqw;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,transparent 52%,rgba(160,40,30,.35) 62%,transparent 72%);mix-blend-mode:screen;pointer-events:none;opacity:0;transition:opacity .6s var(--ease)}
+.stage:hover .sigil-glow{opacity:1}
+.jcard{position:absolute;left:41%;top:71.5%;width:19.4%;height:23.8%;display:flex;flex-direction:column;background:#0b0b0c;border:1px solid #000;box-shadow:0 0 0 1px rgba(200,185,157,.12);transition:opacity .18s var(--ease),transform .18s var(--ease)}
+.jcard.swap{opacity:0;transform:translateY(4%)}
+.jcard img{width:100%;aspect-ratio:1;object-fit:cover;filter:sepia(.25) brightness(.88) contrast(1.05)}
+.jcard span{flex:1;display:grid;place-items:center;padding:0 4%;text-align:center;font:400 2.3cqw/1.05 var(--f-black);color:#d9cdb3;overflow:hidden}
+.jcard::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,150,60,.16),rgba(30,8,0,.38));mix-blend-mode:multiply;pointer-events:none}
+.stage.snuffed>img{filter:brightness(.16) saturate(.5)}
+.stage.snuffed .flame{opacity:0}
+.stage.snuffed .jcard{opacity:.35}
+.stage.night .jcard{display:none}
+.altar-gl{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y;cursor:grab}
+.stage.dragging .altar-gl{cursor:grabbing}
+.stage.gl>img,.stage.gl .flame,.stage.gl .jcard,.stage.gl .sigil-glow{visibility:hidden}
+.gl-hint{display:none}
+.stage.gl~.altar-text .gl-hint{display:inline}
+.altar-text h2{font:600 clamp(2rem,4.4vw,3rem)/1.05 var(--f-cap);margin:0 0 16px}
+.altar-text>p{max-width:48ch;color:#cfcac1;margin:0 0 32px}
+.offering{border-top:1px solid var(--line-2);padding-top:20px;margin-bottom:20px}
+.offering .lbl{color:var(--muted);margin:0 0 6px}
+.offering h3{font:400 clamp(1.75rem,3.4vw,2.5rem)/1.05 var(--f-black);margin:0;color:var(--bone)}
+.offering .who{font:600 1rem/1.3 var(--f-cap);color:var(--parch);margin:8px 0 4px}
+.offering .when{color:var(--muted);margin:0}
+.picks{list-style:none;margin:0 0 24px;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+.picks button{width:44px;height:44px;padding:0;border:1px solid var(--line-2);border-radius:var(--r);background:var(--ash);cursor:pointer;overflow:hidden;transition:border-color .16s var(--ease)}
+.picks button:hover{border-color:var(--muted)}
+.picks button[aria-pressed="true"]{border-color:var(--parch);outline:1px solid var(--parch)}
+.picks img{width:100%;height:100%;object-fit:cover;filter:grayscale(.5)}
+.picks button[aria-pressed="true"] img{filter:none}
+.altar-text .altar-credit{color:var(--muted);font-size:.875rem;margin:20px 0 0}
+
+/* section heads */
+.sec{padding:80px 0;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+.sec-head h2{font:600 clamp(2rem,4.4vw,3rem)/1.05 var(--f-cap);margin:0;color:var(--bone)}
+.sec-head p{margin:8px 0 0;color:var(--muted);max-width:60ch}
+
+/* grimoire: album shelf */
+.shelf{list-style:none;margin:0 0 40px;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.shelf button{width:100%;height:100%;display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:start;text-align:left;padding:10px;border:1px solid var(--line);border-radius:var(--r);background:var(--ash);cursor:pointer;transition:border-color .16s var(--ease),background .16s var(--ease)}
+.shelf button:hover{border-color:var(--line-2);background:var(--ash-2)}
+.shelf button[aria-current="true"]{border-color:var(--parch);background:var(--ash-2)}
+.shelf img{width:56px;height:56px;object-fit:cover;filter:grayscale(.35)}
+.shelf button[aria-current="true"] img{filter:none}
+.shelf b{display:block;font:600 .875rem/1.2 var(--f-cap);color:var(--bone)}
+.shelf i{display:block;font-size:.9375rem;line-height:1.25;color:var(--parch);margin-top:2px}
+.shelf small{display:block;margin-top:6px;color:var(--muted)}
+
+/* grimoire: reader */
+.reader{display:grid;grid-template-columns:220px minmax(0,1fr);gap:32px;align-items:start}
+.chapters{position:sticky;top:72px;max-height:calc(100vh - 180px);overflow:auto;border-left:1px solid var(--line);scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+.chapters ol{list-style:none;margin:0;padding:0}
+.chapters button{display:grid;grid-template-columns:28px 1fr;gap:6px;width:100%;padding:8px 10px;margin-left:-1px;border:0;border-left:1px solid transparent;background:none;text-align:left;cursor:pointer;color:var(--muted);transition:color .16s var(--ease),border-color .16s var(--ease)}
+.chapters button:hover{color:var(--bone)}
+.chapters button[aria-current="true"]{color:var(--bone);border-left-color:var(--ember)}
+.chapters .n{font:600 .75rem/1.6 var(--f-mono);color:var(--parch)}
+.chapters .s{font-size:.875rem;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+
+.leaf{position:relative;background:var(--parch);color:var(--ink);border-radius:var(--r);padding:clamp(24px,5vw,64px) clamp(20px,6vw,80px) 48px;box-shadow:inset 0 0 120px rgba(60,40,15,.45)}
+.leaf::before{content:"";position:absolute;inset:0;background:var(--grain);opacity:.22;mix-blend-mode:multiply;pointer-events:none;border-radius:inherit}
+.leaf>*{position:relative}
+.leaf-head{border-bottom:1px solid rgba(28,23,18,.3);padding-bottom:20px;margin-bottom:28px;max-width:68ch}
+.leaf-head .meta{color:var(--ink-soft);margin:0 0 10px}
+.leaf-head h3{font:400 clamp(2rem,5vw,3.25rem)/1.02 var(--f-black);margin:0;color:var(--ink)}
+.leaf-head .by{font:600 1rem/1.3 var(--f-cap);margin:10px 0 0;color:var(--ember)}
+.prose{max-width:68ch;font-size:1.1875rem;line-height:1.72}
+.prose p{margin:0 0 1.05em;hyphens:auto}
+.prose>p:first-of-type::first-letter{float:left;font:400 4.2em/.82 var(--f-black);color:var(--ember);margin:.06em .1em 0 0}
+.prose .tag{color:var(--ink-soft);font-family:var(--f-mono);font-size:.8em}
+.prose a{color:var(--ember);text-underline-offset:3px}
+.tracks{list-style:none;counter-reset:t;margin:0 0 1.6em;padding:16px 0;border-block:1px solid rgba(28,23,18,.3);font-family:var(--f-mono);font-size:.875rem;line-height:1.5}
+.prose>.tracks:first-child{border-top:0;padding-top:0}
+.tracks li{display:flex;gap:12px;padding:4px 0}
+.tracks li::before{content:attr(data-n)".";color:var(--ember);min-width:24px}
+.tracks li span{flex:1}
+.tracks li.total{color:var(--ink-soft)}
+.tracks li.total::before{content:""}
+.tracks li time{color:var(--ink-soft)}
+.plates{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:32px 0 0;max-width:68ch}
+.plates button{padding:0;border:1px solid rgba(28,23,18,.45);background:var(--ink);cursor:zoom-in;border-radius:var(--r);overflow:hidden}
+.plates img{width:100%;aspect-ratio:1;object-fit:cover;transition:opacity .16s var(--ease)}
+.plates button:hover img{opacity:.85}
+.leaf-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:40px;padding-top:20px;border-top:1px solid rgba(28,23,18,.3);max-width:68ch}
+.leaf-foot .btn{border-color:var(--ink);color:var(--ink)}
+.leaf-foot .btn:hover{background:var(--ink);color:var(--parch)}
+.leaf-foot a.ig{color:var(--ink-soft);font-family:var(--f-mono);font-size:.8125rem}
+.leaf-foot .pos{color:var(--ink-soft)}
+
+/* lightbox */
+dialog.lb{border:1px solid var(--line-2);background:var(--obsidian);color:var(--bone);padding:0;max-width:min(92vw,1000px);width:100%;border-radius:var(--r)}
+dialog.lb::backdrop{background:rgba(5,5,6,.92)}
+.lb img{width:100%;max-height:78vh;object-fit:contain;background:#000}
+.lb-bar{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px}
+.lb-bar .mono{color:var(--muted)}
+.ibtn{min-width:44px;min-height:44px;border:1px solid var(--line-2);border-radius:var(--r);background:var(--ash);cursor:pointer;color:var(--bone);transition:border-color .16s var(--ease),background .16s var(--ease)}
+.ibtn:hover{border-color:var(--parch);background:var(--ash-2)}
+.ibtn:active{transform:translateY(1px)}
+
+/* vault */
+.filters{display:grid;gap:12px;margin-bottom:28px}
+.fgroup{display:flex;flex-wrap:wrap;gap:8px;align-items:center;border:0;margin:0;padding:0}
+.fgroup legend{float:left;width:72px;color:var(--muted);padding:0;font:500 .75rem/2.6 var(--f-mono)}
+.chip{min-height:36px;padding:6px 14px;border:1px solid var(--line-2);border-radius:var(--r);background:transparent;color:var(--muted);font:500 .8125rem/1 var(--f-mono);cursor:pointer;transition:color .16s var(--ease),border-color .16s var(--ease),background .16s var(--ease)}
+.chip:hover{color:var(--bone);border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--bone);border-color:var(--bone);color:var(--obsidian)}
+.count{color:var(--muted);margin:0 0 16px}
+.grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.card{background:var(--obsidian);display:flex;flex-direction:column}
+.card .art{position:relative;aspect-ratio:1;background:var(--ash);overflow:hidden}
+.card .art img{width:100%;height:100%;object-fit:cover}
+.score{position:absolute;right:10px;bottom:10px;background:var(--obsidian);border:1px solid var(--parch);color:var(--parch);padding:6px 8px;font:600 .875rem/1 var(--f-mono)}
+.score small{color:var(--muted);font-weight:400}
+.card .body{padding:16px 16px 18px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h3{font:600 1.0625rem/1.25 var(--f-cap);margin:0;color:var(--bone)}
+.card .t{margin:0;font-style:italic;color:var(--parch);line-height:1.3}
+.card .facts{margin:4px 0 0;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 12px}
+.card .track{margin:0;font-size:.9375rem;color:#bdb7ac}
+.card blockquote{margin:6px 0 0;padding-left:12px;border-left:1px solid var(--ember);font-size:.9375rem;line-height:1.45;color:#bdb7ac;font-style:italic}
+.card .listen{margin-top:auto;padding-top:12px}
+.card .listen a{font:600 .8125rem/1 var(--f-mono);color:var(--bone);text-decoration:none;border-bottom:1px solid var(--ember);padding-bottom:3px;transition:color .16s var(--ease),border-color .16s var(--ease)}
+.card .listen a:hover{color:var(--parch);border-color:var(--parch)}
+.empty{padding:40px;text-align:center;color:var(--muted);background:var(--obsidian)}
+
+/* submit */
+.chamber{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start}
+.chamber aside p{color:#cfcac1;max-width:44ch}
+.chamber aside ul{padding-left:18px;color:var(--muted);margin:0}
+.chamber aside li{margin-bottom:6px}
+form.intake{display:grid;grid-template-columns:1fr 1fr;gap:20px;border:1px solid var(--line-2);background:var(--ash);padding:clamp(20px,4vw,36px)}
+.field{display:grid;gap:6px}
+.field.full{grid-column:1/-1}
+.field label{font:500 .8125rem/1.3 var(--f-mono);color:var(--parch)}
+.field label small{color:var(--muted);font-weight:400}
+.field input,.field select,.field textarea{width:100%;min-height:44px;padding:10px 12px;background:var(--obsidian);border:1px solid var(--line-2);border-radius:var(--r);color:var(--bone);font:400 1rem/1.4 var(--f-text);transition:border-color .16s var(--ease)}
+.field textarea{min-height:140px;resize:vertical}
+.field input:hover,.field select:hover,.field textarea:hover{border-color:var(--muted)}
+.field input:focus-visible,.field select:focus-visible,.field textarea:focus-visible{outline:none;border-color:var(--parch)}
+.field input:user-invalid,.field select:user-invalid{border-color:var(--ember-hi)}
+.field input[type=date]{color-scheme:dark}
+.actions{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.status{grid-column:1/-1;margin:0;min-height:1.5em;color:var(--parch)}
+.status.err{color:#e07a70}
+
+footer{padding:40px 0 24px;color:var(--muted);font-size:.9375rem}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* tape deck */
+.deck{position:fixed;right:16px;bottom:16px;z-index:60;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;align-items:center;width:340px;padding:10px 12px;background:var(--ash);border:1px solid var(--line-2);border-radius:var(--r)}
+.tape{grid-row:1/3;width:88px;height:56px}
+.tape .reel{transform-box:fill-box;transform-origin:center}
+.deck.playing .reel{animation:spin 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(-360deg)}}
+.deck-info{min-width:0}
+.deck-info .side{color:var(--muted);font:500 .6875rem/1.2 var(--f-mono)}
+.deck-info .ttl{font:600 .875rem/1.3 var(--f-cap);color:var(--bone);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.deck-ctl{display:flex;gap:4px}
+.deck-ctl .ibtn{min-width:40px;min-height:36px;display:grid;place-items:center;font:600 .75rem/1 var(--f-mono)}
+.deck-ctl .ibtn[aria-pressed="true"]{background:var(--parch);color:var(--obsidian);border-color:var(--parch)}
+.deck-ctl .hiss{padding:0 10px}
+
+@media (max-width:1100px){.shelf{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:860px){
+  .altar{padding:0 0 48px}
+  .altar .wrap{grid-template-columns:1fr;gap:28px}
+  .stage{margin-inline:-16px;border-width:0 0 1px}
+  .sanctum{padding:32px 0 48px}
+  .sanctum .wrap,.chamber{grid-template-columns:1fr;gap:36px}
+  .relic img{aspect-ratio:16/11}
+  .sec{padding:56px 0}
+  .shelf{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-16px;padding:0 16px 8px;scrollbar-width:none}
+  .shelf li{flex:0 0 78%;scroll-snap-align:start}
+  .reader{grid-template-columns:minmax(0,1fr);gap:16px}
+  .chapters{position:static;max-height:none;border-left:0;border-bottom:1px solid var(--line);margin-inline:-16px;padding:0 16px}
+  .chapters ol{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .chapters button{display:block;width:auto;min-width:44px;min-height:44px;padding:10px 12px;margin:0 0 -1px;border-left:0;border-bottom:1px solid transparent;text-align:center}
+  .chapters button[aria-current="true"]{border-bottom-color:var(--ember)}
+  .chapters .s{display:none}
+  .leaf{margin-inline:-16px;border-radius:0}
+  .prose{font-size:1.125rem}
+  form.intake{grid-template-columns:1fr}
+  .fgroup legend{float:none;width:100%;line-height:1.4}
+  .deck{left:0;right:0;bottom:0;width:auto;border-width:1px 0 0;border-radius:0;grid-template-columns:auto minmax(0,1fr) auto;padding:8px 16px}
+  .tape{grid-row:auto;width:60px;height:38px}
+  .deck-info{grid-column:2}
+  .deck-ctl{grid-column:3;grid-row:1}
+  .deck-ctl .prev,.deck-ctl .next{display:none}
+  body{padding-bottom:72px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="#sanctum" aria-label="Foras, back to top">Foras</a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#altar">Altar</a>
+      <a href="#grimoire">Grimoire</a>
+      <a href="#vault">Vault</a>
+      <a href="#submit">Submit</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="sanctum" id="sanctum" aria-labelledby="t-sanctum">
+    <div class="wrap">
+      <div>
+        <h1 id="t-sanctum">Foras<span class="glyphs" aria-hidden="true">💀🕯️</span></h1>
+        <p class="entity">Shapeless Entity reviewing Black Metal &amp; Dungeon Synth</p>
+        <p class="intro">The coffee beside the parchment has long gone cold. Smoke drifts past the torches, a battered Walkman waits for the next tape, and somewhere a wax seal is cracked open. Each week one release is taken down into the hollow and written up <em>track by track</em>, in long chapters that Instagram hides behind a login wall. Here they are, whole.</p>
+        <div class="seal">
+          <img src="img/sigil.png" alt="" width="48" height="48" style="flex:none;border-radius:50%;box-shadow:0 0 0 2px var(--ember)">
+          <div>
+            <strong>New reviews every Sunday, 8:00 PM GMT</strong>
+            <span class="mono" id="ritual">Calculating the next ritual</span>
+          </div>
+        </div>
+        <div class="cta">
+          <a class="btn btn--blood" href="#grimoire">Open the grimoire</a>
+          <a class="btn" href="#submit">Submit your release</a>
+        </div>
+      </div>
+      <figure class="relic">
+        <button type="button" id="relicBtn"><img id="relicImg" alt="" width="960" height="1200" fetchpriority="high"></button>
+        <figcaption id="relicCap"></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="altar" id="altar" aria-labelledby="t-altar">
+    <div class="wrap">
+      <div class="stage" id="stage">
+        <img src="img/album-10/p01-1.webp" alt="Foras's altar: a skull on a plate of bones before the seal of Foras, between purple and red candles, with a release standing in front" width="960" height="1280" loading="lazy">
+        <div class="sigil-glow" aria-hidden="true"></div>
+        <i class="flame" style="left:6.3%;top:38.3%;--d:2.1s" aria-hidden="true"></i>
+        <i class="flame" style="left:19.3%;top:25.8%;--d:2.9s" aria-hidden="true"></i>
+        <i class="flame" style="left:26.6%;top:60.2%;--d:1.7s" aria-hidden="true"></i>
+        <i class="flame" style="left:74.2%;top:57%;--d:2.5s" aria-hidden="true"></i>
+        <i class="flame" style="left:80.4%;top:63.3%;--d:1.9s" aria-hidden="true"></i>
+        <i class="flame" style="left:83.9%;top:27.3%;--d:3.1s" aria-hidden="true"></i>
+        <i class="flame" style="left:91.5%;top:42.6%;--d:2.3s" aria-hidden="true"></i>
+        <div class="jcard" id="jcard" aria-hidden="true"><img alt="" width="240" height="240"><span></span></div>
+      </div>
+      <div class="altar-text">
+        <h2 id="t-altar">The Altar</h2>
+        <p>Every release that reaches the hollow is set here first: in front of the skull, under the seal of Foras, between candles that burn down over the length of a review. Choose a release to stand it on the altar.</p>
+        <div class="offering" aria-live="polite">
+          <p class="lbl mono">On the stand</p>
+          <h3 id="offTitle"></h3>
+          <p class="who" id="offArtist"></p>
+          <p class="when mono" id="offWhen"></p>
+        </div>
+        <ul class="picks" id="picks" aria-label="Releases to place on the altar"></ul>
+        <div class="cta">
+          <button class="btn btn--blood" type="button" id="offRead">Read this review</button>
+          <button class="btn" type="button" id="snuff" aria-pressed="false">Snuff the candles</button>
+        </div>
+        <p class="altar-credit">Photographed by Foras on the altar in the hollow.<span class="gl-hint"> Drag the tape to turn it over.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="grimoire" aria-labelledby="t-grimoire">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2 id="t-grimoire">The Grimoire</h2>
+          <p>Ten deep-dive reviews, each told across every one of its original posts in the order they were written.</p>
+        </div>
+      </div>
+      <ul class="shelf" id="shelf" aria-label="Choose an album"></ul>
+      <div class="reader">
+        <nav class="chapters" aria-label="Chapters"><ol id="chapters"></ol></nav>
+        <article class="leaf" id="leaf" tabindex="-1" aria-live="polite"></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="vault" aria-labelledby="t-vault">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2 id="t-vault">The Vault</h2>
+          <p>Fifty-nine releases pulled from the collection, with the track to start on and a direct line to Bandcamp.</p>
+        </div>
+      </div>
+      <div class="filters">
+        <fieldset class="fgroup" id="fGenre"><legend>Genre</legend></fieldset>
+        <fieldset class="fgroup" id="fFormat"><legend>Format</legend></fieldset>
+      </div>
+      <p class="count mono" id="count" aria-live="polite"></p>
+      <ul class="grid" id="grid"></ul>
+    </div>
+  </section>
+
+  <section class="sec" id="submit" aria-labelledby="t-submit">
+    <div class="wrap chamber">
+      <aside>
+        <div class="sec-head"><h2 id="t-submit">Submission Chamber</h2></div>
+        <p>Bands and labels: send your release here instead of into the Instagram DMs, where things get buried. Every submission is listened to, though not every one becomes a review.</p>
+        <ul>
+          <li>Physical editions are reviewed first. Tapes, wax and digipaks get the full ritual.</li>
+          <li>A streaming or Bandcamp link is required.</li>
+          <li>Tell the lore. The story behind a release shapes how it is written about.</li>
+        </ul>
+      </aside>
+      <form class="intake" id="intake" novalidate>
+        <div class="field">
+          <label for="s-band">Entity or band name</label>
+          <input id="s-band" name="band" required autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="s-genre">Sub-genre</label>
+          <select id="s-genre" name="genre" required>
+            <option value="">Choose one</option>
+            <option>Dungeon Synth</option><option>Raw Black Metal</option><option>Atmospheric Black Metal</option><option>DSBM</option><option>Dark Ambient</option><option>Other</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="s-link">Stream or Bandcamp link</label>
+          <input id="s-link" name="link" type="url" required placeholder="https://yourband.bandcamp.com/album/…" inputmode="url">
+        </div>
+        <div class="field">
+          <label for="s-format">Physical format</label>
+          <select id="s-format" name="format" required>
+            <option value="">Choose one</option>
+            <option>Cassette tape</option><option>Vinyl</option><option>CD</option><option>Digital only</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="s-date">Target release date <small>(optional)</small></label>
+          <input id="s-date" name="date" type="date">
+        </div>
+        <div class="field full">
+          <label for="s-contact">Where Foras can reply <small>(email or Instagram handle)</small></label>
+          <input id="s-contact" name="contact" required autocomplete="email">
+        </div>
+        <div class="field full">
+          <label for="s-lore">Message and lore</label>
+          <textarea id="s-lore" name="lore" required></textarea>
+        </div>
+        <div class="actions">
+          <button class="btn btn--blood" type="submit">Send submission</button>
+          <button class="btn" type="button" id="copyBtn">Copy submission text</button>
+        </div>
+        <p class="status mono" id="status" role="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Words and photographs by Foras, archived from <a href="https://www.instagram.com/lord_of_the_shadows6_6_6/" rel="noopener" target="_blank">@lord_of_the_shadows6_6_6</a>.</span>
+    <span>Until the bell tolls eight again.</span>
+  </div>
+</footer>
+
+<aside class="deck" id="deck" aria-label="Tape deck">
+  <svg class="tape" viewBox="0 0 88 56" aria-hidden="true">
+    <rect x=".5" y=".5" width="87" height="55" rx="2" fill="#0a0b0d" stroke="#3a3f45"/>
+    <rect x="10" y="8" width="68" height="26" fill="#c8b99d" opacity=".9"/>
+    <rect x="22" y="14" width="44" height="14" rx="7" fill="#0a0b0d"/>
+    <g class="reel"><circle cx="31" cy="21" r="5.5" fill="#14171a" stroke="#c8b99d"/><path d="M31 16.5v9M26.5 21h9" stroke="#c8b99d"/></g>
+    <g class="reel"><circle cx="57" cy="21" r="5.5" fill="#14171a" stroke="#c8b99d"/><path d="M57 16.5v9M52.5 21h9" stroke="#c8b99d"/></g>
+    <path d="M18 55l6-13h40l6 13" fill="none" stroke="#3a3f45"/>
+  </svg>
+  <div class="deck-info">
+    <div class="side" id="deckSide">Side A, 1 of 3</div>
+    <div class="ttl" id="deckTitle">Hollow at Dusk</div>
+  </div>
+  <div class="deck-ctl">
+    <button class="ibtn prev" type="button" id="dPrev" aria-label="Previous track"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 2v10M12 2L5 7l7 5z" fill="currentColor" stroke="currentColor"/></svg></button>
+    <button class="ibtn" type="button" id="dPlay" aria-pressed="false" aria-label="Play"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" id="dPlayIcon"><path d="M3 2l9 5-9 5z" fill="currentColor"/></svg></button>
+    <button class="ibtn next" type="button" id="dNext" aria-label="Next track"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M11 2v10M2 2l7 5-7 5z" fill="currentColor" stroke="currentColor"/></svg></button>
+    <button class="ibtn hiss" type="button" id="dHiss" aria-pressed="true">Hiss</button>
+  </div>
+</aside>
+
+<dialog class="lb" id="lb" aria-label="Photograph">
+  <img id="lbImg" alt="">
+  <div class="lb-bar">
+    <button class="ibtn" type="button" id="lbPrev" aria-label="Previous photograph">‹</button>
+    <span class="mono" id="lbPos"></span>
+    <div><button class="ibtn" type="button" id="lbNext" aria-label="Next photograph">›</button> <button class="ibtn" type="button" id="lbClose" aria-label="Close">✕</button></div>
+  </div>
+</dialog>
+
+<script src="data.js"></script>
+<script>
+(() => {
+const A = window.FORAS_ALBUMS, V = window.FORAS_VAULT, CFG = window.FORAS_CONFIG;
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+const fmtDate = (d) => new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+
+function nextRitual(now) {
+  const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 20));
+  d.setUTCDate(d.getUTCDate() + ((7 - d.getUTCDay()) % 7));
+  if (d <= now) d.setUTCDate(d.getUTCDate() + 7);
+  return d;
+}
+window.__nextRitual = nextRitual;
+function tickRitual() {
+  const now = new Date(), r = nextRitual(now), m = Math.round((r - now) / 60000);
+  const d = Math.floor(m / 1440), h = Math.floor((m % 1440) / 60), mm = m % 60;
+  const local = r.toLocaleString(undefined, { weekday: "long", hour: "2-digit", minute: "2-digit" });
+  $("#ritual").textContent = `Next ritual in ${d ? d + "d " : ""}${h}h ${mm}m, ${local} your time`;
+}
+tickRitual(); setInterval(tickRitual, 30000);
+
+function inline(s) {
+  return s.replace(/(^|\s)#([\p{L}\p{N}_]+)/gu, '$1<span class="tag">#$2</span>')
+    .replace(/(^|[\s(“"])@([\w.]*\w)/g, '$1<a href="https://www.instagram.com/$2/" rel="noopener" target="_blank">@$2</a>');
+}
+function prose(text) {
+  let out = "", list = [];
+  const flush = () => { if (list.length) { out += '<ol class="tracks">' + list.join("") + "</ol>"; list = []; } };
+  for (const raw of text.split("\n")) {
+    const l = raw.trim();
+    const m = l.match(/^(\d{1,2})\.\s*(.+?)\.?\s+(\d{1,2}:\d{2}(?::\d{2})?)$/);
+    if (m) { list.push(`<li data-n="${m[1]}"><span>${esc(m[2])}</span><time>${m[3]}</time></li>`); continue; }
+    if (list.length && /^Total Running Time/i.test(l)) { list.push(`<li class="total"><span>${esc(l.replace(/:\s*$/, ""))}</span></li>`); continue; }
+    flush();
+    if (l) out += "<p>" + inline(esc(l)) + "</p>";
+  }
+  flush();
+  return out;
+}
+function snippet(text) {
+  const line = text.split("\n").map((l) => l.trim()).find((l) => l && !/^\d{1,2}\.\s.*\d:\d{2}$/.test(l) && !/^Total Running Time/i.test(l)) || "";
+  return line.replace(/[#@]\S+/g, "").slice(0, 80);
+}
+
+let cur = { a: 0, p: 0 }, lbList = [], lbIdx = 0;
+
+$("#shelf").innerHTML = A.map((al, i) => `<li><button type="button" data-a="${i}">
+  <img src="${al.posts[0].img[0]}" alt="" width="56" height="56" loading="lazy">
+  <span><b>${esc(al.artist)}</b><i>${esc(al.title)}</i><small class="mono">${al.posts.length} chapters, ${fmtDate(al.date)}</small></span></button></li>`).join("");
+$("#shelf").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) open(+b.dataset.a, 0, true); });
+$("#chapters").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) open(cur.a, +b.dataset.p, true); });
+
+function open(ai, pi, user) {
+  const changedAlbum = ai !== cur.a || !$("#chapters").children.length;
+  cur = { a: ai, p: pi };
+  const al = A[ai], post = al.posts[pi];
+  document.querySelectorAll("#shelf button").forEach((b) => b.setAttribute("aria-current", +b.dataset.a === ai));
+  requestAnimationFrame(() => { const sh = $("#shelf"); sh.scrollLeft += $(`#shelf button[data-a="${ai}"]`).getBoundingClientRect().left - sh.getBoundingClientRect().left - 16; });
+  if (changedAlbum) {
+    $("#chapters").innerHTML = al.posts.map((p, i) => `<li><button type="button" data-p="${i}"><span class="n">${p.n}</span><span class="s">${esc(snippet(p.text))}</span></button></li>`).join("");
+  }
+  document.querySelectorAll("#chapters button").forEach((b) => b.setAttribute("aria-current", +b.dataset.p === pi));
+  const curBtn = $(`#chapters button[data-p="${pi}"]`);
+  if (curBtn) {
+    const ol = $("#chapters"), box = ol.parentElement, b = curBtn.getBoundingClientRect(), br = box.getBoundingClientRect(), or = ol.getBoundingClientRect();
+    box.scrollTop += b.top - br.top - br.height / 2;
+    ol.scrollLeft += b.left - or.left - or.width / 2;
+  }
+  const last = al.posts.length - 1;
+  $("#leaf").innerHTML = `
+    <header class="leaf-head">
+      <p class="meta mono">${esc(al.genre)}, chapter ${pi + 1} of ${al.posts.length}, ${fmtDate(post.date)}</p>
+      <h3>${esc(al.title)}</h3>
+      <p class="by">${esc(al.artist)}</p>
+    </header>
+    <div class="prose">${prose(post.text)}</div>
+    ${post.img.length ? `<div class="plates">${post.img.map((src, i) => `<button type="button" data-i="${i}" aria-label="Open photograph ${i + 1} of ${post.img.length}"><img src="${src}" alt="Photograph ${i + 1} from chapter ${pi + 1} of the ${esc(al.artist)} review" loading="lazy" width="960" height="960"></button>`).join("")}</div>` : ""}
+    <footer class="leaf-foot">
+      <button class="btn" type="button" data-go="-1" ${pi === 0 ? "disabled" : ""}>Previous chapter</button>
+      <a class="ig" href="${post.url}" rel="noopener" target="_blank">Original post</a>
+      <button class="btn" type="button" data-go="1" ${pi === last ? "disabled" : ""}>Next chapter</button>
+    </footer>`;
+  if (user) {
+    history.replaceState(null, "", `#grimoire/${al.id}/${post.n}`);
+    const top = $("#leaf").getBoundingClientRect().top;
+    if (top < 0 || top > innerHeight * 0.6) $(innerWidth <= 860 ? ".reader" : "#leaf").scrollIntoView({ block: "start" });
+    $("#leaf").focus({ preventScroll: true });
+  }
+}
+$("#leaf").addEventListener("click", (e) => {
+  const g = e.target.closest("[data-go]");
+  if (g) return open(cur.a, cur.p + +g.dataset.go, true);
+  const pl = e.target.closest(".plates button");
+  if (pl) { lbList = A[cur.a].posts[cur.p].img; showLb(+pl.dataset.i); }
+});
+
+const lb = $("#lb");
+function showLb(i) {
+  lbIdx = (i + lbList.length) % lbList.length;
+  $("#lbImg").src = lbList[lbIdx];
+  $("#lbPos").textContent = `${lbIdx + 1} / ${lbList.length}`;
+  $("#lbPrev").disabled = $("#lbNext").disabled = lbList.length < 2;
+  if (!lb.open) lb.showModal();
+}
+$("#lbPrev").onclick = () => showLb(lbIdx - 1);
+$("#lbNext").onclick = () => showLb(lbIdx + 1);
+$("#lbClose").onclick = () => lb.close();
+lb.addEventListener("click", (e) => { if (e.target === lb) lb.close(); });
+lb.addEventListener("keydown", (e) => { if (e.key === "ArrowLeft") showLb(lbIdx - 1); if (e.key === "ArrowRight") showLb(lbIdx + 1); });
+
+let offer = 0;
+$("#picks").innerHTML = A.map((al, i) => `<li><button type="button" data-o="${i}" aria-pressed="${i === 0}" aria-label="${esc(al.artist)}, ${esc(al.title)}"><img src="${al.cover}" alt="" width="44" height="44" loading="lazy"></button></li>`).join("");
+function placeOffering(i) {
+  offer = i;
+  const al = A[i], jc = $("#jcard"), night = al.id === "album-10";
+  document.querySelectorAll("#picks button").forEach((b) => b.setAttribute("aria-pressed", +b.dataset.o === i));
+  $("#offTitle").textContent = al.title;
+  $("#offArtist").textContent = al.artist;
+  $("#offWhen").textContent = night ? `The night this photograph was taken, ${fmtDate(al.date)}` : `Reviewed ${fmtDate(al.date)}, ${al.posts.length} chapters`;
+  jc.classList.add("swap");
+  setTimeout(() => {
+    $("#stage").classList.toggle("night", night);
+    jc.querySelector("img").src = al.cover;
+    jc.querySelector("span").textContent = al.artist;
+    jc.classList.remove("swap");
+  }, 180);
+  $("#stage").dispatchEvent(new CustomEvent("offering", { detail: i }));
+}
+$("#picks").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) placeOffering(+b.dataset.o); });
+$("#offRead").onclick = () => { open(offer, 0, false); $("#grimoire").scrollIntoView(); };
+$("#snuff").onclick = () => {
+  const off = $("#stage").classList.toggle("snuffed");
+  $("#snuff").setAttribute("aria-pressed", off);
+  $("#snuff").textContent = off ? "Light the candles" : "Snuff the candles";
+};
+placeOffering(0);
+new IntersectionObserver((es, obs) => {
+  if (!es[0].isIntersecting) return;
+  obs.disconnect();
+  const load = (src) => new Promise((res, rej) => { const sc = document.createElement("script"); sc.src = src; sc.onload = res; sc.onerror = rej; document.head.append(sc); });
+  Promise.all([load("vendor/three.min.js"), load("altar-tex.js")]).then(() => load("altar3d.js")).catch(() => {});
+}, { rootMargin: "600px 0px" }).observe($("#stage"));
+
+const latest = A.reduce((m, a) => (a.date > m.date ? a : m), A[0]);
+$("#relicImg").src = latest.posts[0].img[0];
+$("#relicImg").alt = `Photograph from the ${latest.artist} review`;
+$("#relicCap").innerHTML = `Latest in the grimoire: ${esc(latest.artist)}, <b>${esc(latest.title)}</b>`;
+$("#relicBtn").onclick = () => { open(A.indexOf(latest), 0, false); $("#grimoire").scrollIntoView(); };
+
+const hm = location.hash.match(/^#grimoire\/(album-\d+)\/(\d+)/);
+const startA = hm ? Math.max(0, A.findIndex((a) => a.id === hm[1])) : 0;
+const startP = hm ? Math.max(0, A[startA].posts.findIndex((p) => p.n === +hm[2])) : 0;
+open(startA, startP, false);
+if (hm) requestAnimationFrame(() => $("#grimoire").scrollIntoView());
+
+const GENRES = [["All", null], ["Dungeon Synth", ["Dungeon Synth"]], ["Raw Black Metal", ["Black Metal"]], ["DSBM", ["DSBM & Depressive"]], ["Dark Ambient", ["Dark Ambient"]]];
+const FORMATS = [["All", null], ["Cassette Tape", ["Cassette Tape", "Limited Tape Edition"]], ['12" Vinyl LP', ['12" Vinyl LP']], ["CD Digipak", ["CD Digipak"]]];
+const fsel = { g: 0, f: 0 };
+function chips(el, list, key) {
+  el.insertAdjacentHTML("beforeend", list.map(([n], i) => `<button type="button" class="chip" data-i="${i}" aria-pressed="${i === 0}">${esc(n)}</button>`).join(""));
+  el.addEventListener("click", (e) => {
+    const b = e.target.closest(".chip"); if (!b) return;
+    fsel[key] = +b.dataset.i;
+    el.querySelectorAll(".chip").forEach((c) => c.setAttribute("aria-pressed", c === b));
+    renderVault();
+  });
+}
+chips($("#fGenre"), GENRES, "g");
+chips($("#fFormat"), FORMATS, "f");
+function renderVault() {
+  const g = GENRES[fsel.g][1], f = FORMATS[fsel.f][1];
+  const rows = V.filter((v) => (!g || g.includes(v.genre)) && (!f || f.includes(v.format)));
+  $("#count").textContent = `Showing ${rows.length} of ${V.length} releases`;
+  $("#grid").innerHTML = rows.length ? rows.map((v) => `<li class="card">
+    <div class="art"><img src="${v.art}" alt="Cover of ${esc(v.title)} by ${esc(v.artist)}" loading="lazy" width="700" height="700"><span class="score" aria-label="Score ${v.score} out of 10">${v.score.toFixed(1)}<small>/10</small></span></div>
+    <div class="body">
+      <h3>${esc(v.artist)}</h3>
+      <p class="t">${esc(v.title)}</p>
+      <p class="facts mono"><span>${esc(v.genre)}</span><span>${esc(v.format)}</span></p>
+      <p class="track">Start with “${esc(v.track)}”</p>
+      <blockquote>${esc(v.quote)}</blockquote>
+      <p class="listen"><a href="${esc(v.url)}" rel="noopener" target="_blank">Listen on Bandcamp</a></p>
+    </div></li>`).join("") : `<li class="empty">Nothing in the vault matches both filters. Try another format or genre.</li>`;
+}
+renderVault();
+
+const form = $("#intake"), status = $("#status");
+function say(msg, err) { status.textContent = msg; status.classList.toggle("err", !!err); }
+function compose() {
+  const d = Object.fromEntries(new FormData(form));
+  return { data: d, text: [
+    `Entity / band: ${d.band}`, `Sub-genre: ${d.genre}`, `Link: ${d.link}`, `Physical format: ${d.format}`,
+    `Target release date: ${d.date || "not set"}`, `Reply to: ${d.contact}`, "", "Message / lore:", d.lore,
+  ].join("\n") };
+}
+async function copy(text) {
+  try { await navigator.clipboard.writeText(text); return true; }
+  catch {
+    const t = document.createElement("textarea"); t.value = text; document.body.append(t); t.select();
+    const ok = document.execCommand("copy"); t.remove(); return ok;
+  }
+}
+$("#copyBtn").onclick = async () => {
+  if (!form.reportValidity()) return say("Fill in the highlighted fields first.", true);
+  const ok = await copy(compose().text);
+  say(ok ? "Submission copied. Paste it into an email or DM to Foras." : "Copying was blocked by the browser. Select the fields and copy them by hand.", !ok);
+};
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  if (!form.reportValidity()) return say("Fill in the highlighted fields first.", true);
+  const { data, text } = compose();
+  const copied = await copy(text);
+  const backup = copied ? " A copy is also on your clipboard." : "";
+  if (CFG.webhook) {
+    try {
+      const r = await fetch(CFG.webhook, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify({ ...data, text }) });
+      if (!r.ok) throw new Error(r.status);
+      form.reset();
+      return say("Submission sent to Foras." + backup);
+    } catch (err) {
+      if (!CFG.email) return say(`Sending failed (${err.message}).${backup} DM it to @lord_of_the_shadows6_6_6 instead.`, true);
+    }
+  }
+  if (CFG.email) {
+    location.href = `mailto:${CFG.email}?subject=${encodeURIComponent("Review submission: " + data.band)}&body=${encodeURIComponent(text)}`;
+    return say("Your mail app should open with the submission filled in." + backup);
+  }
+  say(copied ? "Submission copied to your clipboard. Paste it into a DM to @lord_of_the_shadows6_6_6." : "Copying was blocked by the browser. Use the copy button or select the fields by hand.", !copied);
+});
+
+const TRACKS = [
+  { name: "Hollow at Dusk", root: 110, prog: [[0, 3, 7], [-4, 0, 3], [3, 7, 10], [-2, 2, 5]] },
+  { name: "The Bell Tolls Eight", root: 98, prog: [[0, 3, 7], [5, 8, 12], [0, 3, 7], [7, 11, 14]] },
+  { name: "Through the Grey Wall", root: 82.41, prog: [[0, 3, 7], [1, 5, 8], [0, 3, 7], [-2, 1, 5]] },
+];
+let ac, master, hissGain, voices = [], bass, lead, delay, step = 0, ti = 0, timer, playing = false, hissOn = true;
+const hz = (root, semi) => root * Math.pow(2, semi / 12);
+function build() {
+  ac = new (window.AudioContext || window.webkitAudioContext)();
+  master = ac.createGain(); master.gain.value = 0; master.connect(ac.destination);
+  const lp = ac.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.value = 900; lp.Q.value = 0.6;
+  const pad = ac.createGain(); pad.gain.value = 0.09; lp.connect(pad).connect(master);
+  const wow = ac.createOscillator(), wowAmt = ac.createGain(); wow.frequency.value = 0.45; wowAmt.gain.value = 7; wow.connect(wowAmt); wow.start();
+  const sweep = ac.createOscillator(), sweepAmt = ac.createGain(); sweep.frequency.value = 0.06; sweepAmt.gain.value = 350; sweep.connect(sweepAmt).connect(lp.frequency); sweep.start();
+  for (let v = 0; v < 3; v++) {
+    const pair = [-6, 6].map((det) => { const o = ac.createOscillator(); o.type = "sawtooth"; o.detune.value = det; wowAmt.connect(o.detune); o.connect(lp); o.start(); return o; });
+    voices.push(pair);
+  }
+  bass = ac.createOscillator(); bass.type = "sine"; const bg = ac.createGain(); bg.gain.value = 0.16; wowAmt.connect(bass.detune); bass.connect(bg).connect(master); bass.start();
+  delay = ac.createDelay(2); delay.delayTime.value = 0.62; const fb = ac.createGain(); fb.gain.value = 0.42; const wet = ac.createGain(); wet.gain.value = 0.5;
+  delay.connect(fb).connect(delay); delay.connect(wet).connect(master);
+  lead = ac.createGain(); lead.connect(master); lead.connect(delay);
+  const len = ac.sampleRate * 2, buf = ac.createBuffer(1, len, ac.sampleRate), ch = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) ch[i] = Math.random() * 2 - 1;
+  const noise = ac.createBufferSource(); noise.buffer = buf; noise.loop = true;
+  const hp = ac.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 2600;
+  hissGain = ac.createGain(); hissGain.gain.value = hissOn ? 0.03 : 0;
+  noise.connect(hp).connect(hissGain).connect(master); noise.start();
+}
+function chord() {
+  const t = TRACKS[ti], c = t.prog[step % t.prog.length], now = ac.currentTime;
+  voices.forEach((pair, i) => pair.forEach((o) => o.frequency.setTargetAtTime(hz(t.root * 2, c[i]), now, 0.08)));
+  bass.frequency.setTargetAtTime(hz(t.root / 2, c[0]), now, 0.08);
+  for (let k = 0; k < 4; k++) {
+    if (Math.random() < 0.35) continue;
+    const o = ac.createOscillator(), g = ac.createGain(), at = now + k * 1.75 + 0.2;
+    o.type = "triangle"; o.frequency.value = hz(t.root * 4, c[Math.floor(Math.random() * 3)] + (Math.random() < 0.3 ? 12 : 0));
+    g.gain.setValueAtTime(0, at); g.gain.linearRampToValueAtTime(0.05, at + 0.03); g.gain.exponentialRampToValueAtTime(0.0001, at + 1.6);
+    o.connect(g).connect(lead); o.start(at); o.stop(at + 1.7);
+  }
+  step++;
+}
+function showTrack() {
+  $("#deckTitle").textContent = TRACKS[ti].name;
+  $("#deckSide").textContent = `Side A, ${ti + 1} of ${TRACKS.length}`;
+}
+async function setPlay(on) {
+  if (on && !ac) build();
+  playing = on;
+  $("#deck").classList.toggle("playing", on);
+  $("#dPlay").setAttribute("aria-pressed", on);
+  $("#dPlay").setAttribute("aria-label", on ? "Pause" : "Play");
+  $("#dPlayIcon").innerHTML = on ? '<path d="M3 2h3v10H3zM8 2h3v10H8z" fill="currentColor"/>' : '<path d="M3 2l9 5-9 5z" fill="currentColor"/>';
+  if (!ac) return;
+  const now = ac.currentTime;
+  master.gain.cancelScheduledValues(now); master.gain.setValueAtTime(master.gain.value, now);
+  clearInterval(timer);
+  if (on) {
+    await ac.resume();
+    master.gain.linearRampToValueAtTime(0.9, ac.currentTime + 1.5);
+    chord(); timer = setInterval(chord, 7000);
+  } else {
+    master.gain.linearRampToValueAtTime(0, now + 0.4);
+    setTimeout(() => { if (!playing) ac.suspend(); }, 450);
+  }
+}
+function skip(d) { ti = (ti + d + TRACKS.length) % TRACKS.length; step = 0; showTrack(); if (playing) { clearInterval(timer); chord(); timer = setInterval(chord, 7000); } }
+$("#dPlay").onclick = () => setPlay(!playing);
+$("#dPrev").onclick = () => skip(-1);
+$("#dNext").onclick = () => skip(1);
+$("#dHiss").onclick = () => {
+  hissOn = !hissOn; $("#dHiss").setAttribute("aria-pressed", hissOn);
+  if (hissGain) hissGain.gain.setTargetAtTime(hissOn ? 0.03 : 0, ac.currentTime, 0.1);
+};
+showTrack();
+
+const links = [...document.querySelectorAll(".nav a")];
+const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) links.forEach((a) => a.setAttribute("aria-current", a.getAttribute("href") === "#" + e.target.id)); }), { rootMargin: "-45% 0px -50% 0px" });
+document.querySelectorAll("main section").forEach((s) => io.observe(s));
+})();
+</script>
+</body>
+</html>
