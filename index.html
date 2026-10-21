@@ -203,6 +203,11 @@ dialog.lb::backdrop{background:rgba(5,5,6,.92)}
 .card .listen{margin-top:auto;padding-top:12px}
 .card .listen a{font:600 .8125rem/1 var(--f-mono);color:var(--bone);text-decoration:none;border-bottom:1px solid var(--ember);padding-bottom:3px;transition:color .16s var(--ease),border-color .16s var(--ease)}
 .card .listen a:hover{color:var(--parch);border-color:var(--parch)}
+.card .listen{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.card .playhere{min-height:36px;padding:6px 12px;border:1px solid var(--ember);border-radius:var(--r);background:var(--ember);color:var(--bone);font:600 .8125rem/1 var(--f-mono);cursor:pointer;transition:background .16s var(--ease),border-color .16s var(--ease)}
+.card .playhere:hover{background:#8f2424;border-color:#8f2424}
+.card .playhere:active{transform:translateY(1px)}
+.card .playhere[aria-pressed="true"]{background:transparent;color:var(--parch);border-color:var(--parch)}
 .empty{padding:40px;text-align:center;color:var(--muted);background:var(--obsidian)}
 
 /* submit */
@@ -247,6 +252,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .deck-ctl .ibtn{min-width:40px;min-height:36px;display:grid;place-items:center;font:600 .75rem/1 var(--f-mono)}
 .deck-ctl .ibtn[aria-pressed="true"]{background:var(--parch);color:var(--obsidian);border-color:var(--parch)}
 .deck-ctl .hiss{padding:0 10px}
+.deck-bc{grid-column:1/-1;display:flex;gap:6px;align-items:center}
+.deck-bc iframe{flex:1;min-width:0;height:42px;border:0;background:var(--obsidian)}
+.deck-bc[hidden],.deck.bc .deck-ctl{display:none}
 
 @media (max-width:1100px){.shelf{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:860px){
@@ -275,6 +283,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .deck-ctl{grid-column:3;grid-row:1}
   .deck-ctl .prev,.deck-ctl .next{display:none}
   body{padding-bottom:72px}
+  body.bc-on{padding-bottom:124px}
+  body.bc-on .totop{bottom:124px}
+  .deck-bc{grid-row:2}
   .totop{left:auto;right:16px;bottom:72px;width:44px;height:44px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
@@ -468,6 +479,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     <button class="ibtn" type="button" id="dPlay" aria-pressed="false" aria-label="Play"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" id="dPlayIcon"><path d="M3 2l9 5-9 5z" fill="currentColor"/></svg></button>
     <button class="ibtn next" type="button" id="dNext" aria-label="Next track"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M11 2v10M2 2l7 5-7 5z" fill="currentColor" stroke="currentColor"/></svg></button>
     <button class="ibtn hiss" type="button" id="dHiss" aria-pressed="true">Hiss</button>
+  </div>
+  <div class="deck-bc" id="deckBc" hidden>
+    <iframe id="bcFrame" title="Bandcamp player" loading="lazy" allow="autoplay"></iframe>
+    <button class="ibtn" type="button" id="bcClose" aria-label="Close Bandcamp player and return to the tape">✕</button>
   </div>
 </aside>
 
@@ -663,10 +678,12 @@ function renderVault() {
       <p class="facts mono"><span>${esc(v.genre)}</span><span>${esc(v.format)}</span></p>
       <p class="track">Start with “${esc(v.track)}”</p>
       <blockquote>${esc(v.quote)}</blockquote>
-      <p class="listen"><a href="${esc(v.url)}" rel="noopener" target="_blank">Listen on Bandcamp</a></p>
+      <p class="listen">${v.bc ? `<button type="button" class="playhere" data-bc="${v.id}" aria-pressed="${bcOn === v.id}">Play on the deck</button>` : ""}<a href="${esc(v.url)}" rel="noopener" target="_blank">Open on Bandcamp</a></p>
     </div></li>`).join("") : `<li class="empty">Nothing in the vault matches both filters. Try another format or genre.</li>`;
 }
+let bcOn = null;
 renderVault();
+$("#grid").addEventListener("click", (e) => { const b = e.target.closest(".playhere"); if (b) playBandcamp(b.dataset.bc); });
 
 const form = $("#intake"), status = $("#status");
 function say(msg, err) { status.textContent = msg; status.classList.toggle("err", !!err); }
@@ -787,6 +804,28 @@ $("#dHiss").onclick = () => {
   if (hissGain) hissGain.gain.setTargetAtTime(hissOn ? 0.03 : 0, ac.currentTime, 0.1);
 };
 showTrack();
+function playBandcamp(id) {
+  const v = V.find((x) => x.id === id);
+  if (playing) setPlay(false);
+  bcOn = id;
+  $("#bcFrame").src = `https://bandcamp.com/EmbeddedPlayer/${v.bc}/size=small/bgcol=14171a/linkcol=c8b99d/transparent=true/`;
+  $("#deckBc").hidden = false;
+  $("#deck").classList.add("bc");
+  document.body.classList.add("bc-on");
+  $("#deckSide").textContent = "From the vault, via Bandcamp";
+  $("#deckTitle").textContent = `${v.artist}, ${v.title}`;
+  document.querySelectorAll(".playhere").forEach((b) => b.setAttribute("aria-pressed", b.dataset.bc === id));
+}
+$("#bcClose").onclick = () => {
+  bcOn = null;
+  $("#bcFrame").removeAttribute("src");
+  $("#deckBc").hidden = true;
+  $("#deck").classList.remove("bc");
+  document.body.classList.remove("bc-on");
+  showTrack();
+  document.querySelectorAll(".playhere").forEach((b) => b.setAttribute("aria-pressed", "false"));
+  $("#dPlay").focus();
+};
 
 const totop = $("#totop");
 const showTop = () => totop.classList.toggle("show", scrollY > innerHeight * 0.8);
